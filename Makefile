@@ -37,7 +37,7 @@ INC_LIBFT = -I$(LIBFT_PATH)/includes/
 # violet = 140
 # green = 47
 
-TITLE_COLOR = 140
+TITLE_COLOR = 214
 CLEAN_COLOR = 9
 LINK_COLOR = 47
 OBJ_COLOR = 47
@@ -53,7 +53,7 @@ NORME_COLOR_WAR = 196
 cmd_color = echo "\033[38;5;$(1)m$(2)\033[0m"; \
 			$(2)
 
-put_title = echo "\033[38;5;140m[ $(1) ]\033[0m"
+put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 
 #==================#
 #_- Source Files -_#
