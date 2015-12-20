@@ -57,8 +57,8 @@ NORME_COLOR_WAR = 196
 #_- Fonction -_#
 #==============#
 
-cmd_make = echo "\033[38;5;$(MAKE_COLOR)m$(MAKE) $(LIBFT_PATH)\033[0m"; \
-		   $(MAKE) $(LIBFT_PATH)
+cmd_make = echo "\033[38;5;$(MAKE_COLOR)m$(MAKE) $(1)\033[0m"; \
+		   $(MAKE) $(1)
 
 cmd_color = echo "\033[38;5;$(1)m$(2)\033[0m"; \
 			$(2)
@@ -68,7 +68,7 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 #==================#
 #_- Source Files -_#
 #==================#
-SRC_NAME = main.c test.c
+SRC_NAME = main.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -96,8 +96,8 @@ $(OBJ_PATH):
 #	Object Compiation
 $(NAME): $(OBJ)
 	@$(call put_title,Compilation)
-	@$(call cmd_make,$(LIBFT_PATH),Libft)
-	@$(call cmd_make,$(MINILIBX_PATH),MinilibX)
+	@$(call cmd_make,$(LIBFT_PATH))
+	@$(call cmd_make,$(MINILIBX_PATH))
 	@$(call cmd_color,$(OBJ_COLOR),$(CC) $(LDFLAGS) $(OBJ) -o $@)
 
 #	Removing object
