@@ -4,7 +4,7 @@ NAME = fdf
 #_- Compiler -_#
 #==============#
 CC = gcc
-CFLAGS = #-Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra
 RM = rm -rf
 MAKE = make -sC
 
@@ -19,12 +19,13 @@ LIB_PATH =
 #=================#
 #_- lib externe -_#
 #=================#
-LIBFT_PATH = ./libft/
-MINILIBX_PATH = ./minilibx/
+FRAMEWORK = -framework Opengl -framework Appkit
 
-MINILIBX = -L$(MINILIBX_PATH) -lmlx -framework Opengl -framework Appkit
+MINILIBX_PATH = ./minilibx/
+MINILIBX = -L$(MINILIBX_PATH) -lmlx
 INC_MINILIBX = -I$(MINILIBX_PATH)
 
+LIBFT_PATH = ./libft/
 LIBFT = -L$(LIBFT_PATH) -lft
 INC_LIBFT = -I$(LIBFT_PATH)/includes/
 
@@ -76,7 +77,7 @@ OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 INC = $(addprefix -I, $(INC_PATH)) $(INC_MINILIBX) $(INC_LIBFT)
 
-LDFLAGS = $(addprefix -L, $(LIB_PATH)) $(LIBFT) $(MINILIBX)
+LDFLAGS = $(addprefix -L, $(LIB_PATH)) $(LIBFT) $(MINILIBX) $(FRAMEWORK)
 
 #===========#
 #_- Rules -_#
@@ -89,25 +90,25 @@ $(OBJ_PATH)%.o: $(OBJ_PATH) $(SRC_PATH)%.c
 
 #	preLinking
 $(OBJ_PATH):
-	@$(call put_title,Linking);
+	@$(call put_title,Linking)
 	@mkdir -p $(OBJ_PATH)
 
 #	Object Compiation
 $(NAME): $(OBJ)
-	@$(call put_title,Compilation);
+	@$(call put_title,Compilation)
 	@$(call cmd_make,$(LIBFT_PATH),Libft)
 	@$(call cmd_make,$(MINILIBX_PATH),MinilibX)
 	@$(call cmd_color,$(OBJ_COLOR),$(CC) $(LDFLAGS) $(OBJ) -o $@)
 
 #	Removing object
 clean:
-	@$(call put_title,Cleaning);
-	@rm -rf $(OBJ_PATH)
+	@$(call put_title,Cleaning)
+	@$(RM) $(OBJ_PATH)
 	@$(call cmd_color,$(CLEAN_COLOR),rm -rf $(OBJ))
 
 #	Removeing binary
 fclean : clean
-	@rm -rf $(NAME)
+	@$(RM) $(NAME)
 	@$(call cmd_color,$(CLEAN_COLOR),rm -rf $(NAME))
 
 re: fclean all
@@ -118,8 +119,9 @@ norme:
 	[0;38;5;$(NORME_COLOR)mNorme/g; s/Warning/[38;5;$(NORME_COLOR_WAR)m\
 	Warning/g; s/Error/\[38;5;$(NORME_COLOR_ERR)m Error/g"
 
-f: all
+#	run the program
+run: all
 	@echo "\033[38;5;214mRuning Test:\033[0m"
 	@./$(NAME)
 
-.PHONY: all clean fclean re norme f
+.PHONY: all clean fclean re norme run
