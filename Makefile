@@ -85,7 +85,7 @@ LDFLAGS = $(addprefix -L, $(LIB_PATH)) $(LIBFT) $(MINILIBX) $(FRAMEWORK)
 all: $(NAME)
 
 #	linking
-$(OBJ_PATH)%.o: $(OBJ_PATH) $(SRC_PATH)%.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@$(call cmd_color,$(LINK_COLOR),$(CC) $(CFLAGS) $(INC) -o $@ -c $<)
 
 #	preLinking
@@ -94,7 +94,7 @@ $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
 
 #	Object Compiation
-$(NAME): $(OBJ)
+$(NAME): $(OBJ_PATH) $(OBJ)
 	@$(call put_title,Compilation)
 	@$(call cmd_make,$(LIBFT_PATH))
 	@$(call cmd_make,$(MINILIBX_PATH))
