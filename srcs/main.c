@@ -2,6 +2,7 @@
 #include <libft.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct	s_env
 {
@@ -9,20 +10,24 @@ typedef struct	s_env
 	void	*win;
 	size_t	height;
 	size_t	width;
-	size_t	zoom;
+	float	zoom;
+	float	cam_x;
+	float	cam_y;
 }				t_env;
 
 int		rgb_color(int red, int green, int blue)
 {
 	int	res;
 
-	res = red * green * blue - 1;
+	res = red * 65536 + green * 256 + blue;
 	return (res);
 }
 
-void	draw_square(t_env *e, int pos_x, int pos_y, int color)
+
+
+void	draw_cube(t_env *e, int pos_x, int pos_y)
 {
-	int size = 32 * e->zoom;
+	int size = 64 + e->zoom * 10;
 	int	xPos;
 	int	yPos;
 	int	y = 0;
@@ -35,46 +40,55 @@ void	draw_square(t_env *e, int pos_x, int pos_y, int color)
 		x = 0;
 		while (x++ < size)
 		{
-			mlx_pixel_put(e->mlx, e->win, xPos + x , yPos + y, color);
+			mlx_pixel_put(e->mlx, e->win, xPos + x , yPos + y, rgb_color(x, y, 100));
 		}
 	}
 }
 
-/*void	draw_line(t_env *e, int	pos_x, int pos_y, int color)
+/*void	draw_plan(t_env *e)
 {
+	//int	xPos;
+	int	yPos;
+	int	y = 0;
+	//int	x = 0;
 
-}*/
-
-void	draw(t_env *e)
-{
-	//draw_square(e, 0, -3, 0xFF0000);
-	draw_square(e, 0, 0, rand());
-	//draw_square(e, 0, 1, 0x00FF00);
-}
-
-int		expose_hook(t_env *e)
-{
-	draw(e);
-	return (0);
-}
-
-/*void	refresh(t_env *e)
-{
-	size_t x = 0;
-	size_t y = 0;
-	ft_putstr("coucou");
-	while (x++ < e->width)
+	//xPos = (e->height / 2) - 32 / 2;
+	yPos = (e->width / 2) - 32 / 2;
+	while (y++ < e->width / 32)
 	{
-		y = 0;
-		while (y++ < e->height)
-			mlx_pixel_put(e->mlx, e->win, x, y, 0x000000);
-
+		x = 0;
+		while (x++ > e->height)
+			mlx_pixel_put(e->mlx, e->win, x, yPos
 	}
 }*/
 
+int		expose_hook(t_env *e)
+{
+	draw_cube(e, 0, 0);
+	return (0);
+}
+
+int		loop_hook(void)
+{
+	static clock_t	lastime;
+	static int		i;
+	clock_t			times;
+
+	times = clock();
+	i++;
+	if (times/CLOCKS_PER_SEC - lastime/CLOCKS_PER_SEC >= 1.0)
+	{
+		lastime = clock();
+		ft_putstr("fps :");
+		ft_putnbr(i);
+		ft_putchar('\n');
+		i = 0;
+	}
+	return (0);
+}
+
 int		key_hook(int keycode, t_env *e)
 {
-	ft_putnbr(keycode);
 	mlx_clear_window(e->mlx, e->win);
 	if (keycode == 53)
 		exit(0);
@@ -82,7 +96,7 @@ int		key_hook(int keycode, t_env *e)
 		e->zoom += 1;
 	else if(keycode == 125)
 		e->zoom -= 1;
-	draw(e);
+	expose_hook(e);
 	return (0);
 }
 
@@ -97,6 +111,7 @@ int		main(void)
 	e.win = mlx_new_window(e.mlx, e.height, e.width, "Attention un renard");
 	mlx_expose_hook(e.win, expose_hook, &e);
 	mlx_key_hook(e.win, key_hook, &e);
+	mlx_loop_hook(e.mlx, loop_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
 }
