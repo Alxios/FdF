@@ -6,7 +6,7 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 13:52:03 by agaspar           #+#    #+#             */
-/*   Updated: 2015/12/28 18:18:34 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/04 17:51:35 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ void	env_init(t_env *e);
 int		rgb_color(int red, int green, int blue);
 
 int		rgb_color(int r, int g, int b);
+
+void	error(char *error);
 
 #endif
