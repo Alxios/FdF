@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/28 17:38:46 by agaspar           #+#    #+#             */
-/*   Updated: 2016/01/04 17:17:41 by agaspar          ###   ########.fr       */
+/*   Created: 2016/01/04 17:14:39 by agaspar           #+#    #+#             */
+/*   Updated: 2016/01/04 17:16:00 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <fdf.h>
+#include <stdlib.h>
+#define DEBUG 1
 
-void	load_map(char *file)
+void	error(char *error)
 {
-	char	*s;
-	int		fd;
-	int		x;
-	int		y;
-
-	y = 0;
-	if ((fd = open(file, O_RDONLY)) != 1)
-		return (NULL);
-	while (get_next_line(fd, &s) > 0)
+	if (DEBUG == 1)
 	{
-		x = 0;
-		while(*s)
-		{
-
-		}
+		ft_putstr("\033[38;5;9m Error > ");
+		ft_putendl(error);
 	}
+	else
+		ft_putendl("error");
+	exit(EXIT_FAILURE);
 }

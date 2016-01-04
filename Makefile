@@ -122,6 +122,6 @@ norme:
 #	run the program
 run: all
 	@echo "\033[38;5;214mRuning Test:\033[0m"
-	@./$(NAME)
+	@./$(NAME) test/42.fdf
 
 .PHONY: all clean fclean re norme run
