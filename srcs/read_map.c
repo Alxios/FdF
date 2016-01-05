@@ -6,7 +6,7 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 17:38:46 by agaspar           #+#    #+#             */
-/*   Updated: 2016/01/05 14:51:35 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/05 17:09:04 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,50 @@
 #include <fdf.h>
 #include <stdio.h>
 
-void	add_pos(t_pos *pos, int x, int y, int z)
+t_pos	*add_pos(int x, int y, int z)
 {
-	t_pos *new;
+	t_pos	*new;
+
 	if((new = malloc(sizeof(t_pos))) == NULL)
 		error("malloc fail 'read_map.c'");
-	if (!pos)
-	{
-		pos->x = x;
-		pos->y = y;
-		pos->z = z;
-		pos->next = NULL;
-	}
-	else
-	{
-		while(pos->next != NULL)
-			pos = pos->next;
-		new->x = x;
-		new->y = y;
-		new->z = z;
-		pos->next = new;
-	}
+	new->x = x;
+	new->y = y;
+	new->z = z;
+	new->next = NULL;
+	//printf("x[%d], y[%d], z[%d]\n", pos->x, pos->y, pos->z);
+	return (new);
 }
 
 t_pos	*read_map(int fd)
 {
 	t_pos	*pos;
+	t_pos	*tmp;
 	char	*s;
 	int		x;
 	int		y;
 
 	y = 0;
-	if((pos = malloc(sizeof(t_pos))) == NULL)
-		error("malloc fail 'read_map.c'");
+	pos = NULL;
 	while (get_next_line(fd, &s) > 0)
 	{
 		x = 0;
 		while(*s)
 		{
-			if (!ft_isdigit(*s))
-				s++;
-			else
+			if (ft_isdigit(*s))
 			{
-				add_pos(pos, x, y, ft_atoi(s));
-				ft_putnbr(pos->x);
+				if (!pos)
+					tmp = pos = add_pos(x++, y, ft_atoi(s));
+				else
+					pos = pos->next = add_pos(x++, y, ft_atoi(s));
 				while (ft_isdigit(*s))
 					s++;
 			}
-			x++;
+			else
+				s++;
 		}
 		y++;
 	}
-	return (pos);
+	return (tmp);
 }
 
 void	load_map(char *file)
@@ -78,9 +70,7 @@ void	load_map(char *file)
 	pos = read_map(fd);
 	while (pos)
 	{
-		ft_putchar('c');
-		printf("x[%d], y[%d], z[%d]", pos->x, pos->y, pos->z);
+		printf("x[%d], y[%d], z[%d]\n", pos->x, pos->y, pos->z);
 		pos = pos->next;
-
 	}
 }
