@@ -6,7 +6,7 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 14:26:05 by agaspar           #+#    #+#             */
-/*   Updated: 2015/12/28 18:23:37 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/05 17:17:01 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int		main(int ac, char **av)
 	else
 	{
 		load_map(av[1]);
-		//t_env e;
-		//env_init(&e);
 	}
 	return (0);
 }

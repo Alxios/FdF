@@ -6,46 +6,40 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 15:40:21 by agaspar           #+#    #+#             */
-/*   Updated: 2015/12/28 15:43:13 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/05 19:00:39 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
+#include <stdio.h>
 
 void	draw_cube(t_env *e, int pos_x, int pos_y)
 {
-	int size = 64 + e->zoom * 10;
-	int	xPos;
-	int	yPos;
-	int	y = 0;
-	int	x = 0;
+	int size = 8 + e->zoom * 1;
+	double	xPos;
+	double	yPos;
+	double	x;
+	double	y;
 
-	xPos = (e->height / 2) - size / 2  + pos_x * size;
-	yPos = (e->width / 2) - size/ 2 + pos_y * size;
-	while (y++ < size)
-	{
-		x = 0;
-		while (x++ < size)
-		{
-			mlx_pixel_put(e->mlx, e->win, xPos + x , yPos + y,
-					rgb_color(x, y, 100));
-		}
-	}
+	xPos = ((e->height) + ((size * 19)) - size) / 2;
+	yPos = ((e->width) + ((size * 11)) - size) / 2;
+	x = xPos + pos_x * size;
+	y = yPos + pos_y * size;
+ 	/*if (x > 0 && x < e->height && y > 0 && y < e->width)
+	{*/
+		printf("size :%d, x :%f, y :%f\n", size, x, y);
+		mlx_pixel_put(e->mlx, e->win, x, y, rgb_color(255, 0, 0));
+	/*}*/
 }
 
-/*void	draw_plan(t_env *e)
+void	draw_plan(t_env *e)
 {
-	//int	xPos;
-	int	yPos;
-	int	y = 0;
-	//int	x = 0;
-	//xPos = (e->height / 2) - 32 / 2;
-	yPos = (e->width / 2) - 32 / 2;
-	while (y++ < e->width / 32)
+	t_pos	*tmp;
+	tmp = e->pos;
+	while (tmp)
 	{
-		x = 0;
-		while (x++ > e->height)
-			mlx_pixel_put(e->mlx, e->win, x, yPos
+		draw_cube(e, tmp->x, tmp->y);
+		tmp = tmp->next;
 	}
-}*/
+}
 

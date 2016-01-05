@@ -6,7 +6,7 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 17:03:32 by agaspar           #+#    #+#             */
-/*   Updated: 2015/12/28 17:30:31 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/05 17:23:26 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #include <stdlib.h>
 #include <hook.h>
 
-void	env_init(t_env *e)
+void	env_init(t_env *e, t_pos *pos)
 {
 	e->height = 420;
 	e->width = 420;
 	e->zoom = 1;
+	e->pos = pos;
 
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, e->height, e->width,

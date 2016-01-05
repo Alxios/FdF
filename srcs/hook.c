@@ -6,7 +6,7 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 16:48:30 by agaspar           #+#    #+#             */
-/*   Updated: 2015/12/28 16:59:40 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/05 17:29:31 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int		expose_hook(t_env *e)
 {
-	draw_cube(e, 0, 0);
+	draw_plan(e);
 	return (0);
 }
 

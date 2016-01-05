@@ -6,7 +6,7 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 13:52:03 by agaspar           #+#    #+#             */
-/*   Updated: 2016/01/05 14:40:31 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/05 17:49:02 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ typedef struct	s_env
 	void	*win;
 	size_t	height;
 	size_t	width;
+	t_pos	*pos;
 	float	zoom;
-	float	cam_x;
-	float	cam_y;
 }				t_env;
 
 void	load_map(char *file);
 void	draw_cube(t_env *e, int pos_x, int pos_y);
+void	draw_plan(t_env *e);
 
-void	env_init(t_env *e);
+void	env_init(t_env *e, t_pos *pos);
 int		rgb_color(int red, int green, int blue);
 
 int		rgb_color(int r, int g, int b);

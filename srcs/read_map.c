@@ -6,7 +6,7 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 17:38:46 by agaspar           #+#    #+#             */
-/*   Updated: 2016/01/05 17:09:04 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/05 17:28:07 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,16 @@ t_pos	*read_map(int fd)
 void	load_map(char *file)
 {
 	t_pos	*pos;
+	t_env	e;
 	int		fd;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
-		error("Impossible d'ouvrire le fichier");
+		error("Impossible d'ouvrir le fichier");
 	pos = read_map(fd);
-	while (pos)
+	env_init(&e, pos);
+	/*while (pos)
 	{
 		printf("x[%d], y[%d], z[%d]\n", pos->x, pos->y, pos->z);
 		pos = pos->next;
-	}
+	}*/
 }
