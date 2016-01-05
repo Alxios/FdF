@@ -6,7 +6,7 @@
 /*   By: agaspar <agaspar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 13:52:03 by agaspar           #+#    #+#             */
-/*   Updated: 2016/01/04 17:51:35 by agaspar          ###   ########.fr       */
+/*   Updated: 2016/01/05 14:40:31 by agaspar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include <mlx.h>
 # include <math.h>
 # include <libft.h>
+
+typedef struct	s_pos
+{
+	int				x;
+	int				y;
+	int				z;
+	struct s_pos	*next;
+}				t_pos;
 
 typedef struct	s_env
 {
